@@ -38,10 +38,10 @@ def not_bad(s):
     if first_not < first_bad:
         start, end = s.split('not')
         new_end = end[end.find('bad'):].replace('bad', 'good')
-        return (start + new_end)
-    
+        return start + new_end
+
     return s
-    
+
 # F. front_back
 # Consider dividing a string into two halves.
 # If the length is even, the front and back halves are the same length.
@@ -49,10 +49,26 @@ def not_bad(s):
 # e.g. 'abcde', the front half is 'abc', the back half 'de'.
 # Given 2 strings, a and b, return a string of the form
 #  a-front + b-front + a-back + b-back
+import math
 def front_back(a, b):
-    if len(a) % 2 == 0:
-        front = a[:int(len(a) / 2 - 1)]
-    return
+    a_front, a_back, b_front, b_back = '', '', '', ''
+
+    def split_two_halves(s):
+        s_front, s_back = '', ''
+        if len(s) % 2 != 0: # se for ímpar
+            mid_index = math.floor(len(s) / 2)
+            s_front = s[:mid_index + 1]
+            s_back = s[mid_index + 1:]
+        else:
+            s_front = s[:int(len(s)/2)]
+            s_back = s[int(len(s)/2):]
+
+        return s_front, s_back
+
+    a_front, a_back = split_two_halves(a)
+    b_front, b_back = split_two_halves(b)
+
+    return ''.join([a_front, b_front, a_back, b_back])
 
 
 # Simple provided test() function used in main() to print
